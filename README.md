@@ -2,7 +2,7 @@
  - This project is an ensemble of multiple big-data applications- all dockerized to work as a group providing weatherdata analytics.
  - The source of this data is: [OpenWeatherMapAPI](https://www.openweathermap.org/)
 ## Architecture
-![ARCHITECURE](documentation\architecture.jpg)
+<img src="https://github.com/suchiksagar/bigdataproject/blob/master/documentation/architecture.jpg" alt="Image Goes Here"/>
 
 ## Description
 ### dataservices (AWS EC2 cluster)
