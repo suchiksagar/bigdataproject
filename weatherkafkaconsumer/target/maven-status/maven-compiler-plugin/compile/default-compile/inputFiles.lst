@@ -1,0 +1,4 @@
+/vagrant/share/Bigdata-github/weatherkafkaconsumer/src/main/java/com/bigdata/project/weatherkafkaconsumer/consumer/App.java
+/vagrant/share/Bigdata-github/weatherkafkaconsumer/src/main/java/com/bigdata/project/weatherkafkaconsumer/consumer/KafkaConsumerConfig.java
+/vagrant/share/Bigdata-github/weatherkafkaconsumer/src/main/java/com/bigdata/project/weatherkafkaconsumer/consumer/WeatherDataConsumer.java
+/vagrant/share/Bigdata-github/weatherkafkaconsumer/src/main/java/com/bigdata/project/weatherkafkaconsumer/consumer/ElasticSearchClient.java

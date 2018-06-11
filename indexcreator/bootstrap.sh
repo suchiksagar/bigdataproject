@@ -1,0 +1,3 @@
+#!/bin/sh
+#Creates index & mappings needed to flow the weather data from kafka to elastic
+sleep 120 && curl -X PUT $DOCKER_HOST:9200/weather -H 'Content-Type: application/json' -d '{"mappings": {"current": {"properties": {"coord": {"type": "geo_point"}, "weather": {"properties": {"main": {"type": "keyword"}}},"main": {"properties": {"temp": {"type": "float"},"humidity": {"type": "float"}}},"wind": {"properties": {"speed": {"type": "float"}}},"dt": {"type": "date","format" : "epoch_second"},"sys": {"properties": {"country": {"type": "text"}}},"name": {"type": "keyword"}}}}}'

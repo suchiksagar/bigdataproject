@@ -1,0 +1,4 @@
+com/bigdata/project/weatherkafkaconsumer/consumer/App.class
+com/bigdata/project/weatherkafkaconsumer/consumer/WeatherDataConsumer.class
+com/bigdata/project/weatherkafkaconsumer/consumer/KafkaConsumerConfig.class
+com/bigdata/project/weatherkafkaconsumer/consumer/ElasticSearchClient.class

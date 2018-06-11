@@ -1,0 +1,17 @@
+version: '2'
+services:
+  kafka:
+    image: "wurstmeister/kafka:0.10.2.0"
+    ports:
+     - "9092:9092"
+    links: 
+     - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: `ip routdget 8.8.8.8 | awk '{print $NF; exit}'`
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"

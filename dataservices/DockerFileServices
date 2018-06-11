@@ -1,0 +1,15 @@
+FROM openjdk:8
+LABEL maintainer="sagarksuchi@gmail.com"
+LABEL author="Winter Soldier"
+LABEL description="Weather Data extractor connects to OpenWeatherMap API and downloads weather info"
+RUN mkdir /tmp/bigdata && \
+    mkdir /tmp/bigdata/weatherdataws && \
+    mkdir /tmp/bigdata/weatherdataws/scripts && \
+    mkdir /tmp/bigdata/weatherdata && \
+    mkdir /tmp/bigdata/weatherdata/dump
+COPY weatherdataws/run.properties /tmp/bigdata/weatherdataws/
+COPY weatherdataws/target/weatherdataws-1.0.0-SNAPSHOT.jar /tmp/bigdata/weatherdataws/app/
+COPY filepollws/target/filepollws-1.0.0-SNAPSHOT.jar /tmp/bigdata/filepollws/app/
+COPY start.sh /tmp/weatherdataws/scripts/
+ENTRYPOINT ["bash", "/tmp/weatherdataws/scripts/start.sh"]
+EXPOSE 8080 8090
