@@ -1,6 +1,8 @@
 package com.bigdata.project.weatherdata.ws.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,10 +12,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
+@PropertySource("classpath:application.properties")
 public class OpenWeatherMapApiClient {
 
 	private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather";
-	private static final String KEY = "84c7fed7f829423f2f0ead38a92f492c";
+	@Value(value = "${APIKEY}")
+	private String KEY;
 
 	@Autowired
 	private RestTemplate restTemplate;
