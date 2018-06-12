@@ -5,7 +5,7 @@ start-flume > /tmp/flumelog.txt 2>&1 &
 while :
 do
 	TMS=$(date +%s)
-	curl http://$DOCKER_HOST:8090/filepollws/v1/filepoll > /tmp/dump/data-dump-$TMS.json
+	curl http://$SERVICE_HOST:8090/filepollws/v1/filepoll > /tmp/dump/data-dump-$TMS.json
 	sleep 12
 	mv /tmp/dump/data-dump-$TMS.json /tmp/flumefeed/data-dump-$TMS.json
 done
