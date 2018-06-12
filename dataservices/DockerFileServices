@@ -1,3 +1,4 @@
+## Make sure to pass the APIKEY as an ENV variable to Docker run command
 FROM openjdk:8
 LABEL maintainer="sagarksuchi@gmail.com"
 LABEL author="Winter Soldier"
