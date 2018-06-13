@@ -28,10 +28,6 @@ public class AmazonS3ContentPublisher {
 	@Value("${aws.s3.secretKey}")
 	private String secretKey;
 	private AmazonS3 s3;
-	
-	public AmazonS3ContentPublisher() {
-		
-	}
 
 	public void publishMessage(String content) {
 		if(s3 == null) {
@@ -49,7 +45,6 @@ public class AmazonS3ContentPublisher {
 	}
 	
 	public void bootstrapClient() {
-		System.out.println("Key: "+ accessKey + " | Secret: "+secretKey);
 		BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
 		s3 = AmazonS3ClientBuilder.standard()
 				.withCredentials(new AWSStaticCredentialsProvider(awsCredentials)).withRegion(region).build();
@@ -59,5 +54,4 @@ public class AmazonS3ContentPublisher {
 			s3.createBucket(bucketName);
 		}
 	}
-
 }

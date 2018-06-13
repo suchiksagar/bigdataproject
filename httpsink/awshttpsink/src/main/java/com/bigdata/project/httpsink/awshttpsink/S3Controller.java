@@ -15,7 +15,7 @@ public class S3Controller {
 	
 	@PostMapping
 	public String publish(@RequestBody String body) {
-		try {
+		try {			
 			contentPublisher.publishMessage(body);
 			return "Success";
 		} catch (Exception ex) {
