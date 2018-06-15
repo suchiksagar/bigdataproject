@@ -10,6 +10,7 @@ RUN mkdir /tmp/dump && \
     mkdir /tmp/scripts
 COPY flume-kafka-hdfs-conf.properties /opt/flume-config/flume.conf
 COPY bootstrap.sh /tmp/scripts/
+RUN sed -i 's/\r//' /tmp/scripts/bootstrap.sh
 ENV PATH="/opt/flume/bin:/tmp/scripts:${PATH}"
 WORKDIR /opt/flume/bin
 ENTRYPOINT [ "bash",  "/tmp/scripts/bootstrap.sh"]

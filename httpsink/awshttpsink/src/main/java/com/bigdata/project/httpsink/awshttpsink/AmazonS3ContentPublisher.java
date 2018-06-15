@@ -33,6 +33,9 @@ public class AmazonS3ContentPublisher {
 		if(s3 == null) {
 			bootstrapClient();
 		}
+		if(content == null || "".equals(content)){
+			return;
+		}
 		try {
 			ObjectMetadata objectMetadata = new ObjectMetadata();
 			PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName,

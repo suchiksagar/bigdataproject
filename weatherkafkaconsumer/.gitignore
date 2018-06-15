@@ -8,6 +8,7 @@ target/
 .project
 .settings
 .springBeans
+target/
 
 ### IntelliJ IDEA ###
 .idea
@@ -22,6 +23,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
 
 ### Other ignored folders ####
 samplewebapp/
