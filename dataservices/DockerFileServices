@@ -1,4 +1,5 @@
 ## Make sure to pass the APIKEY as an ENV variable to Docker run command
+## Added sed to clear the line endings 
 FROM openjdk:8
 LABEL maintainer="sagarksuchi@gmail.com"
 LABEL author="Winter Soldier"
@@ -12,5 +13,7 @@ COPY weatherdataws/run.properties /tmp/bigdata/weatherdataws/
 COPY weatherdataws/target/weatherdataws-1.0.0-SNAPSHOT.jar /tmp/bigdata/weatherdataws/app/
 COPY filepollws/target/filepollws-1.0.0-SNAPSHOT.jar /tmp/bigdata/filepollws/app/
 COPY start.sh /tmp/weatherdataws/scripts/
+RUN sed -i 's/\r//' /tmp/weatherdataws/scripts/start.sh
+ENV PATH="/tmp/weatherdataws/scripts:${PATH}"
 ENTRYPOINT ["bash", "/tmp/weatherdataws/scripts/start.sh"]
 EXPOSE 8080 8090
