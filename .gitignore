@@ -1,0 +1,3 @@
+weatherkafkaconsumer/target
+.env
+docker-compose.yml.bkp

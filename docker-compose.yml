@@ -1,0 +1,77 @@
+version: '2'
+services:
+  kafka:
+    image: "wurstmeister/kafka:0.10.2.0"
+    ports:
+     - "9092:9092"
+    links: 
+     - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${HOST_VALUE}
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
+    depends_on:
+      - zookeeper
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  elastic: 
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+    ports: 
+      - "9200:9200"
+      - "9300:9300"
+    environment: 
+      ES_JAVA_OPTS: "-Xms256m -Xmx256m" 
+      discovery.type: "single-node"
+  indexCreator:
+    image: wintersoldier/indexcreator:latest
+    environment: 
+      DOCKER_HOST: http://${HOST_VALUE}
+    depends_on: 
+      - elastic
+  kafkaconsumer:
+    image: wintersoldier/kafkaconsumer:latest
+    environment: 
+      KAFKA_TOPIC: flumeweatherdata
+      DOCKER_HOST: ${HOST_VALUE}
+    depends_on: 
+      - kafka
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.2.4
+    environment: 
+      ELASTICSEARCH_URL: http://${HOST_VALUE}:9200
+    ports: 
+      - "5601:5601"
+    depends_on: 
+      - flume
+  httpsink:
+    image: wintersoldier/s3httpsink:latest
+    ports: 
+      - "7075:7075"
+    environment: 
+      AWS_S3_BUCKET: ${S3_BUCKET}
+      AWS_REGION: ${AWS_ZONE}
+      AWS_ACCESSKEY: ${ACCESS_KEY}
+      AWS_SECRETKEY: ${SECRET_KEY}
+  flume:
+    image: wintersoldier/kafkaflume:latest
+    environment: 
+      DOCKER_HOST: ${HOST_VALUE}
+      FLUME_AGENT_NAME: docker
+      SERVICE_HOST: ${HOST_VALUE}
+      SINK_HOST: ${HOST_VALUE}
+    depends_on: 
+      - kafkaconsumer
+  dataservices:
+    image: wintersoldier/weatherdataservice:latest
+    ports: 
+      - "8080:8080"
+      - "8090:8090"
+    environment:
+      APIKEY: ${MAP_APIKEY}
+
+  
+    
+
