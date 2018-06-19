@@ -14,4 +14,23 @@ It includes 2 sub projects
 - filepollws:
     - This spring boot REST web service works in tandem with the previous one only that this retrieves the most recent weather record (every call fecthes a record) at any given moment
 
+### Flume 
+Flume consists of three sub components: 
+- curl script:
+    - This script constantly polls for the newer data exposed by the data service(filepoll) to fetch a new weather record ebvery 12 seconds and dumps it to a staging area
+    - The script also pushes the same file to the s3httpsink microservice (via HTTP POST call) which inturn deposits this file on AWS s3
+- Flume Agent:
+    - This flume agent reads the files from the staging area which acts as its spool source. It uses a memory channel to transfer the data over to a kafka sink
+- Clean Up:
+    - Once the data is rolled over from the staging area, the files are automatically purged by the script (bash)
+
+### Kafka
+ - The Kafka-Zookeeper ensemble ensures that the weather data is almost always consumed. If the downstream systems are unavailable for some reason say either elastic stack or the kafka consumers go down, the stream still retains these messages for a default 7 day period.
+ - They can also be read from the beginning if required so that all the data is carefully injested into elastic.
+
+### s3HttpSink
+ - This Spring BOOT REST webservice receives a weather data message via POST call and deposits the message as a file into your s3 account. 
+ - The advantage is that you can turn the data injetion on or off at will 
+ - This data can further be used to run EMR/spark jobs or may be analyzed using Hive/Pig
+
 ### 
